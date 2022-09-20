@@ -2,7 +2,7 @@ __all__ = ['register_user_commands', 'bot_commands']
 
 from aiogram import Router
 from aiogram.filters import Command
-# region bugs aio 3.0.0b2
+# region bugs aiogram 3.x.b2
 # from aiogram.dispatcher.filters.command import CommandStart
 # endregion
 from aiogram.filters.command import CommandStart
