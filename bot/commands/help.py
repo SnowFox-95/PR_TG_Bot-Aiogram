@@ -18,7 +18,14 @@ async def help_cmd(message: types.Message, command: CommandObject):
 
 
 async def help_func(message: types.Message):
-    await message.answer(
+    return await message.answer(
+        'Помощь и справка о боте \n'
+        'Для того, чтобы получить информацию о команде используй /help <команда>'
+    )
+
+
+async def call_help_func(call: types.CallbackQuery):
+    return await call.message.answer(
         'Помощь и справка о боте \n'
         'Для того, чтобы получить информацию о команде используй /help <команда>'
     )
