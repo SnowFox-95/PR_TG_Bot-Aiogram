@@ -7,12 +7,12 @@ from aiogram.filters import Command
 # endregion
 from aiogram.filters.command import CommandStart
 
-
 from aiogram import F
 from bot.commands.help import help_cmd, help_func, call_help_func, clear_call_help_func
 from bot.commands.start import start
 from bot.commands.bot_commands import bot_commands
-from bot.commands.settings import setting_command
+from bot.commands.settings import setting_command, setting_callback
+from bot.commands.callback_data_states import TestCallbackData
 
 
 def register_user_commands(router: Router) -> None:
@@ -28,4 +28,5 @@ def register_user_commands(router: Router) -> None:
     # region callback_register
     router.callback_query.register(call_help_func, F.data == 'help')
     router.callback_query.register(clear_call_help_func, F.data == 'clear')
+    router.callback_query.register(setting_callback, TestCallbackData.filter())
     # endregion
