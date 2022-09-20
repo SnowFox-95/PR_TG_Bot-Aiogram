@@ -1,5 +1,6 @@
 __all__ = ['register_user_commands', 'bot_commands']
 
+
 from aiogram import Router
 from aiogram.filters import Command
 # region bugs aiogram 3.x.b2
