@@ -14,7 +14,7 @@ from bot.commands.start import start
 from bot.commands.bot_commands import bot_commands
 from bot.commands.settings import setting_command, setting_callback
 from bot.commands.callback_data_states import TestCallbackData
-
+from bot.middlewares.register_check import RegisterCheck
 
 def register_user_commands(router: Router) -> None:
     # region message_register
@@ -31,3 +31,6 @@ def register_user_commands(router: Router) -> None:
     router.callback_query.register(clear_call_help_func, F.data == 'clear')
     router.callback_query.register(setting_callback, TestCallbackData.filter())
     # endregion
+
+    router.message.register(RegisterCheck)
+    router.callback_query.register(RegisterCheck)

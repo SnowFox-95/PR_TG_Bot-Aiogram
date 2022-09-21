@@ -9,7 +9,7 @@ from commands import register_user_commands
 from commands.bot_commands import bot_commands
 
 from db import baseModel, create_async_engine, get_session_maker, proceed_schemas
-
+from bot.middlewares.register_check import RegisterCheck
 
 async def main() -> None:
     logging.basicConfig(level=logging.DEBUG)
@@ -19,6 +19,9 @@ async def main() -> None:
         command_for_bot.append(BotCommand(command=cmd[0], description=cmd[1]))
 
     dp = Dispatcher()
+    dp.message.middleware(RegisterCheck)
+    dp.callback_query.middleware(RegisterCheck)
+
     bot = Bot(token=os.getenv('token'))
     await bot.set_my_commands(commands=command_for_bot)
 
@@ -35,7 +38,7 @@ async def main() -> None:
     async_engine = create_async_engine(postgres_url)
     session_maker = get_session_maker(async_engine)
     await proceed_schemas(async_engine, baseModel.metadata)
-    await dp.start_polling(bot)
+    await dp.start_polling(bot, session_maker=session_maker)
 
 
 if __name__ == '__main__':
